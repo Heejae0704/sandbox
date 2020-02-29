@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Basic</title>
+    <script>
+        function strokeRoundedRect(ctx, x, y, width, height, radius) {
+            ctx.strokeStyle = "blue"
+            ctx.fillStyle = "gray";
+            ctx.beginPath();
+            ctx.moveTo(x+radius, y);
+            ctx.arcTo(x+width, y       , x+width, y+height, radius);
+            ctx.arcTo(x+width, y+height, x      , y+height, radius);
+            ctx.arcTo(x      , y+height, x      , y       , radius);
+            ctx.arcTo(x      , y       , x+width, y       , radius);
+            ctx.fill();
+        }
+
+        window.onload = function() {
+            var canvas = document.getElementById("mycanvas");
+            var ctx = canvas.getContext("2d");
+//            strokeRoundedRect(ctx, 10, 10, 100, 80, 10)
+//            strokeRoundedRect(ctx, 150, 10, 100, 80, 30)
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = "red";
+            ctx.fillStyle = "blue";
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round"
+//            ctx.globalAlpha = "0.6";
+            ctx.strokeRect(10, 10, 100, 80);
+            ctx.fillRect(150, 10, 100, 80);
+        }
+    </script>
+</head>
+<body>
+    <canvas id="mycanvas" width="640" height="400"></canvas>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.onload = function() {
+            var enscriptor = Enscriptor();
+            document.getElementById("cipher").onclick = function() {
+                var keyword = document.getElementById("keyword").value;
+                var plaintext = document.getElementById("plaintext").value;
+                var ciphertext = document.getElementById("ciphertext");
+                ciphertext.value = enscriptor.encrypt(plaintext, keyword, true);
+            };
+            document.getElementById("decipher").onclick = function() {
+                var keyword = document.getElementById("keyword").value;
+                var plaintext = document.getElementById("plaintext");
+                var ciphertext = document.getElementById("ciphertext").value;
+                plaintext.value = enscriptor.encrypt(ciphertext, keyword, false);
+            };
+        };
+        function Enscriptor() {
+            var obj = {};
+            var N_ALPHABET = 26;
+            var extraCharactors = [" ", ",",".","?","!","%","#","'","&","$","@",":","/"];
+            obj.chars = [];
+            for(var c="a".charCodeAt(0); c<="z".charCodeAt(0); c++) {
+                obj.chars.push(String.fromCharCode(c));
+            }
+            for(var c="A".charCodeAt(0); c<="Z".charCodeAt(0); c++) {
+                obj.chars.push(String.fromCharCode(c));
+            }
+            for(var d=0; d<=9; d++) {
+                obj.chars.push(d.toString());
+            }
+            for(var j=0; j<extraCharactors.length; j++) {
+                obj.chars.push(extraCharactors[j]);
+            }
+            obj.nchars = obj.chars.length;
+            obj.numberOf = function(ch) {
+                var code = ch.charCodeAt(0);
+                if (code>="a".charCodeAt(0) && code<="z".charCodeAt(0)) {
+                    return code - "a".charCodeAt(0);
+                } else if(code>="A".charCodeAt(0) && code<="Z".charCodeAt(0)) {
+                    return N_ALPHABET + code - "A".charCodeAt(0);
+                } else if(code>="0".charCodeAt(0) && code<="9".charCodeAt(0)) {
+                    return 2*N_ALPHABET + code - "0".charCodeAt(0)
+                } else {
+                    for (var k=0; k<extraCharactors.length; k++) {
+                        if( ch === extraCharactors[k] ) {
+                            return 2*N_ALPHABET + 10 + k;
+                        }
+                    }
+                    return null;
+                }
+            };
+            obj.shift = function(ch, n) {
+                var num = this.numberOf(ch);
+                if ( num === null ) return ch;
+                num = (num + n + this.nchars) % this.nchars;
+                return this.chars[num];
+            };
+            obj.encrypt = function(text, keyword, encription) {
+                var cipherText = "";
+                var nkey = keyword.length;
+                for (var i=0, ikey=0; i<text.length; i++, ikey++) {
+                    ikey %= nkey;
+                    var nshift = this.numberOf(keyword[ikey]);
+                    if(!encription) nshift *= -1;
+                    cipherText += this.shift(text[i], nshift);
+                }
+                return cipherText;
+            }
+            return obj;
+        }
+    </script>
+    <style>
+        p {
+            font-size: smaller;
+        }
+        input {
+            height: 20px;
+        }
+        #plaintext, #ciphertext {
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <h2>원판 암호기를 활용한 암호화</h2>
+    <p>키워드 : <input type="text" id="keyword"></p>
+    <p>평문 : <input type="text" id="plaintext"></p>
+    <p>암호문 : <input type="text" id="ciphertext"></p>
+    <input type="button" id="cipher" value="암호화">
+    <input type="button" id="decipher" value="복호화">
+    
+</body>
+</html>

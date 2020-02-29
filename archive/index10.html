@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>high blood pressure calculator</title>
+    <script>
+        window.onload = function() {
+            document.getElementById("button").onclick = function() {
+                var hp = parseFloat(document.getElementById("highpressure").value);
+                var lp = parseFloat(document.getElementById("lowpressure").value);
+                var judgement = document.getElementById("judgement");
+                if (hp<120 && lp<80) {
+                    judgement.innerHTML = "Your blood pressure is normal.";
+                } else if (hp<139 && lp<89) {
+                    judgement.innerHTML = "Your blood pressure is a bit high.";
+                } else {
+                    judgement.innerHTML = "You have high blood pressure!";
+                };
+            };
+        };
+    </script>p
+</head>
+<body>
+    <p>High Blood Pressure: <input type="number" id="highpressure"></p>
+    <p>Low Blood Pressure: <input type="number" id="lowpressure"></p>
+    <p id="judgement">Your result here</p>
+    <input type="button" id="button" value="Calculate">
+</body>
+</html>

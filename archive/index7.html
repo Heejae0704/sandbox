@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picture on Canvas</title>
+    <style>
+        canvas {border: 2px solid gray;}
+    </style>
+    <script>
+        window.onload = function() {
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            var img = new Image();
+            img.onload = function() {
+                ctx.drawImage(img,300, 100, 400, 300, 100, 100, 400, 300);
+            };
+            img.src = './bebop.jpg';
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="960" height="540"></canvas>
+    
+</body>
+</html>

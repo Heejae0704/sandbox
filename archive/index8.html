@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel RGB Value</title>
+    <style>
+        canvas { border: 2px solid gray; }
+    </style>
+    <script>
+        window.onload = function() {
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            var img = new Image();
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0);
+                var imageData = ctx.getImageData(0,0,canvas.width, canvas.height);
+                imageData.getRGBA = function(m,n,i) {
+                    return this.data[this.width*4*n + 4*m+i];
+                };
+                var rgb = document.getElementById("rgb");
+                canvas.onclick = function(event) {
+                    var x = event.offsetX;
+                    var y = event.offsetY;
+                    rgb.innerHTML = " R:" + String(imageData.getRGBA(x,y,0)).padStart(3, '0')
+                                  + " G:" + String(imageData.getRGBA(x,y,1)).padStart(3, '0')
+                                  + " B:" + String(imageData.getRGBA(x,y,2)).padStart(3, '0');
+                };
+            };
+            img.src = "./bebop.jpg"
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="960" height="540"></canvas>
+    <div><output id="rgb"></output></div>
+</body>
+</html>
