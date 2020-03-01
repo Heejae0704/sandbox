@@ -323,7 +323,7 @@ controls.pattern = function(state) {
   select.addEventListener("change", function(e) {
     clearInterval(state.timer);
     state.playing = false;
-    if (selected.selectedIndex != 0) {
+    if (select.selectedIndex != 0) {
       placePattern(state.patterns[select.selectedIndex - 1]);
     }
     select.selectedIndex = 0;
