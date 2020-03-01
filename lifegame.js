@@ -8,7 +8,7 @@ window.onload = function() {
     if (error) {
       delete controls.pattern;
     } else {
-      stete.patterns = jsonObj;
+      state.patterns = jsonObj;
     }
     createLifeGame(document.body, 78, 60, 780, 600);
   });
