@@ -44,7 +44,7 @@ function createLifeGame(parent, nx, ny, width, height) {
 state.create = function(nx, ny) {
   state.nx = nx;
   state.ny = ny;
-  state.cells = new Array(nx);
+  state.cells = new Array(ny);
   for (var ix = 0; ix < nx; ix++) {
     state.cells[ix] = new Array(ny);
     for (var iy = 0; iy < ny; iy++) {
