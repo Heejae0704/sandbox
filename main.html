@@ -14,7 +14,7 @@
             var output = document.getElementById("output");
             startClock();
 
-            var worker = new Worker("worker.js");
+            var worker = new Worker("./worker.js");
             worker.onmessage = function(e) {
                 console.log("received: " + new Date());
                 output.innerHTML = N + " 이하의 최대 소수 = " + e.data;
