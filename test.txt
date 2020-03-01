@@ -1,0 +1,15 @@
+"use strict";
+var state = Object.create(null);
+var view = Object.create(null);
+var controls = Object.create(null);
+
+window.onload = function() {
+  readFile("./patterns.json", function(jsonObj, error) {
+    if (error) {
+      delete controls.pattern;
+    } else {
+      state.patterns = jsonObj;
+    }
+    createLifeGame(document.body, 78, 60, 780, 600);
+  });
+};

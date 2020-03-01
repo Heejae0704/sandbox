@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>드래그 앤 드롭 예제</title>
+    <script>
+        window.onload = function() {
+            var color = document.getElementById("color");
+            var dropbox = document.getElementById("dropbox");
+            color.ondragstart = function(e) {
+                e.dataTransfer.setData("text/plain", e.target.value);
+            };
+            dropbox.ondragover = function(e) {
+                e.preventDefault();
+            }
+            dropbox.ondrop = function(e) {
+                e.preventDefault();
+                e.target.style.backgroundColor = e.dataTransfer.getData("text/plain")
+            };
+        };
+    </script>
+    <style>
+        #color { margin-bottom: 10px; }
+        #dropbox { width: 150px; padding: 50px; border: 1px solid gray; }
+    </style>
+</head>
+<body>
+    <input type="color" id="color" draggable="true">
+    <div id="dropbox">이곳에 드롭하세요.</div>    
+</body>
+</html>
